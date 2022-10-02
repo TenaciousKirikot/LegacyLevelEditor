@@ -1,0 +1,17 @@
+{
+	"windowSize": 2,
+	"isFullscreen": false,
+	"enableVSync": true,
+	"fpsLimit": 0,
+	"colorWindowSize": 0,
+	"colorWindowEnableVSync": true,
+	"colorWindowFpsLimit": 0,
+	"language": "English",
+	"theme": "Default",
+	"colorWindow": "Default",
+	"layout": "Default",
+	"musicVolume": 50,
+	"soundVolume": 50,
+	"usePrettyPrinting": true,
+	"useTabs": true
+}
