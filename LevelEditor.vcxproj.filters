@@ -675,12 +675,6 @@
     <ClInclude Include="source\utility\arithmetic.hpp">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="source\utility\color_window.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="source\utility\color_window_settings.hpp">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="source\utility\control_constructor.hpp">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
@@ -723,9 +717,6 @@
     <ClInclude Include="source\controls\check_box.hpp">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="source\controls\color_picker.hpp">
-      <Filter>Header Files\Controls</Filter>
-    </ClInclude>
     <ClInclude Include="source\controls\combo_box.hpp">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
@@ -759,15 +750,15 @@
     <ClInclude Include="source\main\sound_handler.hpp">
       <Filter>Header Files\Main</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\controls\button.cpp">
       <Filter>Source\Controls</Filter>
     </ClCompile>
     <ClCompile Include="source\controls\check_box.cpp">
-      <Filter>Source\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="source\controls\color_picker.cpp">
       <Filter>Source\Controls</Filter>
     </ClCompile>
     <ClCompile Include="source\controls\combo_box.cpp">
@@ -781,9 +772,6 @@
     </ClCompile>
     <ClCompile Include="source\controls\text_control.cpp">
       <Filter>Source\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="source\utility\color_window.cpp">
-      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="source\utility\hsv.cpp">
       <Filter>Source\Utility</Filter>
@@ -815,5 +803,15 @@
     <ClCompile Include="source\main\sound_handler.cpp">
       <Filter>Source\Main</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LevelEditor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
+    <Image Include="data\Resources\Textures\Default\Shared\Icon.png" />
+    <Image Include="..\..\..\Libraries\Downloads\Icon (1).ico" />
+    <Image Include="LevelEditor.ico" />
+    <Image Include="..\..\..\Libraries\Downloads\Icon (2).ico" />
   </ItemGroup>
 </Project>

@@ -68,6 +68,7 @@ protected:
 	bool									m_input_valid;
 	bool									m_hovering;
 	bool									m_holding;
+	bool									m_holding_current;
 	bool									m_holding_wheel;
 	bool									m_visible;
 	bool									m_enabled;

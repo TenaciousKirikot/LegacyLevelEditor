@@ -10,7 +10,6 @@
 #include "control_constructor.hpp"
 #include "../controls/button.hpp"
 #include "../controls/check_box.hpp"
-#include "../controls/color_picker.hpp"
 #include "../controls/combo_box.hpp"
 #include "../controls/control.hpp"
 #include "../controls/input_control.hpp"

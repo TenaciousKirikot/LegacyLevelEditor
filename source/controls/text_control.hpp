@@ -28,6 +28,10 @@ public:
 	void					onResized(sf::Event::SizeEvent data) override;
 	virtual void			draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	virtual void			onMouseMoved(sf::Event::MouseMoveEvent data) override;
+	virtual void			onMouseButtonPressed(sf::Event::MouseButtonEvent data) override;
+	virtual void			onMouseButtonReleased(sf::Event::MouseButtonEvent data) override;
+
 protected:
 	const TextTheme*		m_text_theme;
 	sf::Text				m_text;
@@ -43,13 +47,8 @@ protected:
 	
 	void					setTextOrigin();
 	void					setTextPosition();
-	virtual void			onMouseEntered(sf::Event::MouseMoveEvent data);
-	virtual void			onMouseLeft(sf::Event::MouseMoveEvent data);
-	virtual void			onClicked(sf::Event::MouseButtonEvent data);
-	virtual void			onReleased(sf::Event::MouseButtonEvent data);
+	void					setTextColors(bool holding, bool hovering);
 
-private:
-	void					setTextColors(bool holding, bool hovering, bool disabled = false);
 };
 
 #endif

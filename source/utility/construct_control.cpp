@@ -48,25 +48,6 @@ Control* constructControl(const ControlConstructor& constructor)
 			constructor.enabled
 		);
 	}
-	else if (constructor.control_type == "ColorPicker")
-	{
-		return new ColorPicker(
-			constructor.window,
-			constructor.intended_resolution,
-			constructor.strings,
-			constructor.color_window,
-			constructor.theme,
-			constructor.handler,
-			constructor.position,
-			constructor.size,
-			constructor.bg_rect,
-			constructor.bg_active_rect,
-			constructor.color,
-			constructor.min_y_position,
-			constructor.visible,
-			constructor.enabled
-		);
-	}
 	else if (constructor.control_type == "ComboBox")
 	{
 		return new ComboBox(
@@ -127,6 +108,7 @@ Control* constructControl(const ControlConstructor& constructor)
 			constructor.bg_rect,
 			constructor.bg_active_rect,
 			constructor.text,
+			constructor.action_string,
 			constructor.min_y_position,
 			constructor.visible,
 			constructor.enabled
@@ -144,7 +126,8 @@ Control* constructControl(const ControlConstructor& constructor)
 			constructor.position,
 			constructor.size,
 			constructor.text,
-			constructor.rotation_angle
+			constructor.rotation_angle,
+			constructor.enabled
 		);
 	}
 	else if (constructor.control_type == "ByteNumeric")

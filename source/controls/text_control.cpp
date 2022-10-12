@@ -53,10 +53,10 @@ TextControl::TextControl(RenderWindow* window, Vector2u intended_resolution, map
 
 void TextControl::setEnabled(bool enabled)
 {
+	Control::setEnabled(enabled);
 	if (m_initialized)
 	{
-		Control::setEnabled(enabled);
-		setTextColors(false, false, !m_enabled);
+		setTextColors(false, false);
 	}
 }
 
@@ -82,7 +82,7 @@ void TextControl::onLanguageUpdated()
 void TextControl::onThemeUpdated()
 {
 	Control::onThemeUpdated();
-	setTextColors(false, false, !m_enabled);
+	setTextColors(false, false);
 }
 
 void TextControl::setText(String string)
@@ -209,31 +209,43 @@ void TextControl::setTextPosition()
 	m_text.setPosition(m_text_position);
 }
 
-void TextControl::onMouseEntered(Event::MouseMoveEvent data)
+void TextControl::setTextColors(bool holding, bool hovering)
 {
-	Control::onMouseEntered(data);
-	setTextColors(m_holding, true);
+	m_text.setFillColor(!m_enabled ? m_text_theme->fill_disabled_color : holding ? m_text_theme->fill_holding_color : hovering ? m_text_theme->fill_hovering_color : m_text_theme->fill_default_color);
+	m_text.setOutlineColor(!m_enabled ? m_text_theme->outline_disabled_color : holding ? m_text_theme->outline_holding_color : hovering ? m_text_theme->outline_hovering_color : m_text_theme->outline_default_color);
 }
 
-void TextControl::onMouseLeft(Event::MouseMoveEvent data)
+void TextControl::onMouseMoved(sf::Event::MouseMoveEvent data)
 {
-	setTextColors(false, false);
+	if (m_initialized && m_input_valid && m_enabled)
+	{
+		bool current_hovering = m_hovering;
+		Control::onMouseMoved(data);
+
+		if (current_hovering != m_hovering)
+		{
+			setTextColors(m_hovering ? m_holding : false, m_hovering);
+		}
+	}
 }
 
-void TextControl::onClicked(Event::MouseButtonEvent data)
+void TextControl::onMouseButtonPressed(Event::MouseButtonEvent data)
 {
-	Control::onClicked(data);
-	setTextColors(true, false);
+	Control::onMouseButtonPressed(data);
+	if (m_initialized && m_input_valid && m_enabled)
+	{
+		if (m_holding || m_holding_wheel)
+		{
+			setTextColors(true, false);
+		}
+	}
 }
 
-void TextControl::onReleased(Event::MouseButtonEvent data)
+void TextControl::onMouseButtonReleased(Event::MouseButtonEvent data)
 {
-	Control::onReleased(data);
-	setTextColors(false, m_hovering);
-}
-
-void TextControl::setTextColors(bool holding, bool hovering, bool disabled)
-{
-	m_text.setFillColor(disabled ? m_text_theme->fill_disabled_color : holding ? m_text_theme->fill_holding_color : hovering ? m_text_theme->fill_hovering_color : m_text_theme->fill_default_color);
-	m_text.setOutlineColor(disabled ? m_text_theme->outline_disabled_color : holding ? m_text_theme->outline_holding_color : hovering ? m_text_theme->outline_hovering_color : m_text_theme->outline_default_color);
+	Control::onMouseButtonReleased(data);
+	if (m_initialized && m_input_valid && m_enabled && m_holding_current && m_hovering)
+	{
+		setTextColors(false, m_hovering);
+	}
 }

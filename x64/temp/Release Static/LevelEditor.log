@@ -1,0 +1,11 @@
+﻿  F:\Personal\NewEra\LevelEditor\extlibs\bin\x64\openal32.dll
+  Скопировано файлов: 1.
+  Подпапка или файл F:\Personal\NewEra\LevelEditor\x64\bin\Release Static\data уже существует.
+  Скопировано файлов: 0.
+MSVCRT.lib(initializers.obj) : warning LNK4098: библиотека по умолчанию "msvcrtd.lib" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
+  Создание кода
+  7 of 11446 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    14 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  LevelEditor.vcxproj -> F:\Personal\NewEra\LevelEditor\x64\bin\Release Static\Level Editor.exe

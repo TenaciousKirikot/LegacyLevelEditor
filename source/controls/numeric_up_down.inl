@@ -66,7 +66,7 @@ inline NumericUpDown<T>::NumericUpDown(RenderWindow* window, Vector2u intended_r
 	const IntRect& top_button_bg, const sf::IntRect& top_button_bg_focused, const IntRect& bottom_button_bg, const IntRect& bottom_button_bg_focused,
 	T min, T max, T step, T value, function<void(T)> updated, int scroll_time, float min_y_position, bool visible, bool enabled) :
 
-	InputControl::InputControl(window, intended_resolution, strings, theme, handler, text_theme, input_control_theme, field_position, field_size, bg, bg_focused, to_string(value), min_y_position, visible, enabled),
+	InputControl::InputControl(window, intended_resolution, strings, theme, handler, text_theme, input_control_theme, field_position, field_size, bg, bg_focused, to_string(value), [](sf::String) {}, min_y_position, visible, enabled),
 	m_button_size(button_size),
 	m_value_updated(updated),
 	m_first_condition(unsigned_integral<T> ? "^[+]?\\d+$" : integral<T> ? "^[+-]?\\d+$" : "^[0-9.+-]+$"),
@@ -146,7 +146,7 @@ template<typename T>
 	requires arithmetic<T>
 inline void NumericUpDown<T>::setEnabled(bool enabled)
 {
-	Control::setEnabled(enabled);
+	InputControl::setEnabled(enabled);
 	m_top_button->setEnabled(enabled);
 	m_bottom_button->setEnabled(enabled);
 }

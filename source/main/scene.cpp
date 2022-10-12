@@ -102,20 +102,20 @@ void Scene::setBackground(Vector2u resolution, Texture* texture)
 void Scene::setAnimations(bool toggle)
 {
 	m_toggle_animations = toggle;
+	if (toggle && m_bg_movement_enabled)
+	{
+		m_background_position = new sf::Vector2f(m_min.x + (m_max.x - m_min.x) / 2, m_min.y + (m_max.y - m_min.y) / 2);
+		m_background.setPosition(*m_background_position * m_scale);
+	}
 }
 
 void Scene::setBackgroundMovement(bool enabled, Vector2f min, Vector2f max, Vector2f step)
 {
-	if (m_toggle_animations)
-	{
-		m_direction = true;
-		m_bg_movement_enabled = enabled;
-		m_min = min;
-		m_max = max;
-		m_step = step;
-		m_background_position = new sf::Vector2f(min.x + (max.x - min.x) / 2, min.y + (max.y - min.y) / 2);
-		m_background.setPosition(*m_background_position * m_scale);
-	}
+	m_bg_movement_enabled = enabled;
+	m_direction = true;
+	m_min = min;
+	m_max = max;
+	m_step = step;
 }
 
 void Scene::onThemeUpdated()

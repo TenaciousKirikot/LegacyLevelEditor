@@ -7,7 +7,6 @@
 #ifndef EDITOR_CONTROL_CONSTRUCTOR_HPP
 #define EDITOR_CONTROL_CONSTRUCTOR_HPP
 
-#include "color_window.hpp"
 #include "../main/sound_handler.hpp"
 #include "../themes/control_theme.hpp"
 #include "../themes/text_theme.hpp"
@@ -21,7 +20,6 @@ struct ControlConstructor
 	sf::RenderWindow*						window;
 	sf::Vector2u							intended_resolution;
 	std::map<sf::String, sf::String>*		strings;
-	ColorWindow*							color_window;
 	ControlTheme*							theme;
 	sf::Vector2f							position;
 	sf::Vector2f							size;
@@ -32,11 +30,11 @@ struct ControlConstructor
 	TextTheme*								text_theme;
 	InputControlTheme*						input_control_theme;
 	bool									checked;
-	sf::Color								color;
 	sf::String								text;
 	std::function<void()>					action_empty;
 	std::function<void(bool)>				action_boolean;
 	std::function<void(long double)>		action_numeric;
+	std::function<void(sf::String)>			action_string;
 	sf::Vector2f							button_size;
 	sf::IntRect								first_button_bg_rect;
 	sf::IntRect								first_button_bg_focused_rect;
