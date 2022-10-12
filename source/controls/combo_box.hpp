@@ -26,6 +26,7 @@ public:
 	void						setIndex(size_t index);
 	void						setItems(std::vector<sf::String> items, size_t new_index);
 	void						setPosition(sf::Vector2f position) override;
+	void onLanguageUpdated() override;
 	void						onThemeUpdated() override;
 	void						onUpdated() override;
 	bool						onWindowEvent(sf::Event data) override;

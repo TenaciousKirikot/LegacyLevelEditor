@@ -10,8 +10,6 @@
 #include "application_settings.hpp"
 #include "scene.hpp"
 #include "../themes/editor_theme.hpp"
-#include "../utility/color_window.hpp"
-#include "../utility/color_window_settings.hpp"
 #include "../utility/io.hpp"
 #include "../utility/layout_settings.hpp"
 #include <minijson/minijson_reader.hpp>
@@ -38,28 +36,23 @@ public:
 	void									setFullscreen(bool fullscreen);
 	void									setVsync(bool enable_vsync);
 	void									setFramerateLimit(sf::Uint8 fps_limit);
-	void									setColorWindowSize(size_t index);
-	void									setColorVsync(bool enable_vsync);
-	void									setColorFramerateLimit(sf::Uint8 fps_limit);
 	void									setLanguage(sf::String control);
 	void									setTheme(sf::String control);
-	void									setColorWindow(sf::String control);
 	void									setLayout(sf::String control);
 
 	void									setMusicVolume(float volume);
 	void									setSoundVolume(float volume);
 	void									setPrettyPrinting(bool pretty_printing);
 	void									setTabs(bool use_tabs);
+	void									setDefaultFileLocation(sf::String default_file_location);
 	void									saveJson();
 	void									close();
 
 private:
 	sf::RenderWindow*						m_window;
-	ColorWindow*							m_color_window;
 	ApplicationSettings						m_settings;
 	std::map<sf::String, sf::String>*		m_strings;
 	EditorTheme								m_theme;
-	ColorWindowSettings						m_color_window_settings;
 	LayoutSettings							m_layout;
 	std::map<sf::String, Control*>			m_controls;
 	Scene									m_current_scene;
@@ -78,7 +71,6 @@ private:
 	bool									m_current_window_fullscreen;
 	sf::String								m_current_language;
 	sf::String								m_current_theme;
-	sf::String								m_current_color_window;
 	sf::String								m_current_layout;
 	bool									m_settings_changed;
 
@@ -106,11 +98,6 @@ U Application::getControlValue(sf::String id)
 	{
 		CheckBox* control = dynamic_cast<CheckBox*>(m_controls[id]);
 		return control->getChecked();
-	}
-	else if constexpr (is_same_v<T, ColorPicker>)
-	{
-		ColorPicker* control = dynamic_cast<ColorPicker*>(m_controls[id]);
-		return control->getColor();
 	}
 	else if constexpr (is_same_v<T, ComboBox>)
 	{

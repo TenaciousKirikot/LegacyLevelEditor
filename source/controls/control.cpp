@@ -287,11 +287,11 @@ void Control::onMouseButtonReleased(Event::MouseButtonEvent data)
 {
 	if (m_initialized && m_input_valid && m_enabled)
 	{
-		bool holding = m_holding;
+		m_holding_current = m_holding;
 		m_holding = false;
 		m_holding_wheel = false;
 
-		if (m_enabled && holding && m_hovering)
+		if (m_enabled && m_holding_current && m_hovering)
 		{
 			onReleased(data);
 		}

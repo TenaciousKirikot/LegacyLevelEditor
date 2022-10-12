@@ -18,7 +18,7 @@ class InputControl : public TextControl
 public:
 	InputControl();
 	InputControl(sf::RenderWindow* window, sf::Vector2u intended_resolution, std::map<sf::String, sf::String>* strings, const ControlTheme* theme, SoundHandler* handler, const TextTheme* text_theme, const InputControlTheme* input_control_theme,
-		sf::Vector2f position, sf::Vector2f size, const sf::IntRect& bg, const sf::IntRect& bg_focused, sf::String text, float min_y_position, bool visible = true, bool enabled = true);
+		sf::Vector2f position, sf::Vector2f size, const sf::IntRect& bg, const sf::IntRect& bg_focused, sf::String text, std::function<void(sf::String)> updated, float min_y_position, bool visible = true, bool enabled = true);
 
 	sf::String						getText() const;
 	virtual void					setCursor(size_t position);
@@ -36,6 +36,7 @@ protected:
 	};
 
 	const InputControlTheme*		m_input_theme;
+	std::function<void(sf::String)>	m_text_updated;
 	sf::RectangleShape				m_cursor;
 	sf::RectangleShape				m_selection;
 	bool							m_focused;
@@ -60,6 +61,7 @@ private:
 	void							eraseText(bool condition, size_t last, long long offset);
 	void							inputText(sf::String characters);
 	void							updateText(size_t offset, sf::String buffer);
+	void							disableSelection();
 };
 
 #endif

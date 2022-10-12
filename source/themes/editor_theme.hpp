@@ -17,6 +17,7 @@
 struct EditorTheme
 {
 	sf::String								loading_screen;
+	sf::String								icon;
 	bool									toggle_animations;
 	std::map<sf::String, sf::Shader*>		shaders;
 	std::map<sf::String, sf::Font*>			fonts;

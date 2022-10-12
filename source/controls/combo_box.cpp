@@ -178,6 +178,12 @@ void ComboBox::setPosition(sf::Vector2f position)
 	m_forward_button->setPosition(Vector2f(position.x + m_size.x + m_button_offset, position.y + (m_size.y - m_button_size.y) / 2));
 }
 
+void ComboBox::onLanguageUpdated()
+{
+	Control::onLanguageUpdated();
+	setText(m_strings->contains(m_item) ? m_strings->operator[](m_item) : m_item);
+}
+
 void ComboBox::onThemeUpdated()
 {
 	Control::onThemeUpdated();

@@ -39,13 +39,14 @@ InputControl::InputControl() :
 	m_cursor_position(0),
 	m_selected(false),
 	m_selection_offset(0),
-	m_selection_range(0, 0)
+	m_selection_range(0, 0),
+	m_text_updated()
 {
 
 }
 
 InputControl::InputControl(RenderWindow* window, Vector2u intended_resolution, map<String, String>* strings, const ControlTheme* theme, SoundHandler* handler, const TextTheme* text_theme, const InputControlTheme* input_control_theme,
-	Vector2f position, Vector2f size, const IntRect& bg, const IntRect& bg_focused, String text, float min_y_position, bool visible, bool enabled) :
+	Vector2f position, Vector2f size, const IntRect& bg, const IntRect& bg_focused, String text, std::function<void(String)> updated, float min_y_position, bool visible, bool enabled) :
 
 	TextControl::TextControl(window, intended_resolution, strings, theme, handler, text_theme, position, size, bg, bg_focused, text, min_y_position, visible, enabled),
 	m_input_theme(input_control_theme),
@@ -56,7 +57,8 @@ InputControl::InputControl(RenderWindow* window, Vector2u intended_resolution, m
 	m_cursor_position(m_str_len),
 	m_selected(false),
 	m_selection_offset(0),
-	m_selection_range(0, 0)
+	m_selection_range(0, 0),
+	m_text_updated(updated)
 {
 	m_cursor.setPosition(0, position.y);
 	m_cursor.setFillColor(m_input_theme->cursor_color);
@@ -153,10 +155,24 @@ void InputControl::onKeyPressed(Event::KeyEvent data)
 					m_selected = true;
 					m_selection_range = make_pair(0, m_str_len);
 					m_selection_offset = m_text_global.left;
-					m_selection.setPosition(m_text_position.x - m_text_origin.x, m_position.y);
+					m_selection.setPosition(m_text_position.x - m_text_origin.x, m_position.y * m_original_size_coeff.x);
 					m_selection.setSize(Vector2f(m_text_local.width, m_size.y));
 					setCursor(m_str_len);
 				}
+				break;
+			}
+
+			case Keyboard::Home:
+			{
+				disableSelection();
+				setCursor(0);
+				break;
+			}
+
+			case Keyboard::End:
+			{
+				disableSelection();
+				setCursor(m_str_len);
 				break;
 			}
 
@@ -227,19 +243,19 @@ void InputControl::onResized(sf::Event::SizeEvent data)
 
 void InputControl::onMouseEntered(Event::MouseMoveEvent data)
 {
-	TextControl::onMouseEntered(data);
+	Control::onMouseEntered(data);
 	m_window->setMouseCursor(*m_input_theme->mouse_cursor_text);
 }
 
 void InputControl::onMouseLeft(Event::MouseMoveEvent data)
 {
-	TextControl::onMouseLeft(data);
+	Control::onMouseLeft(data);
 	m_window->setMouseCursor(*m_input_theme->mouse_cursor_default);
 }
 
 void InputControl::onClicked(Event::MouseButtonEvent data)
 {
-	TextControl::onClicked(data);
+	Control::onClicked(data);
 	m_focused = true;
 	m_selected = false;
 	m_selection_range = make_pair(0, 0);
@@ -380,7 +396,7 @@ void InputControl::inputText(String characters)
 
 	if (m_selected)
 	{
-		buffer.replace(m_selection_range.first, m_selection_range.second - m_selection_range.first + 1, characters);
+		buffer.replace(m_selection_range.first, m_selection_range.second - m_selection_range.first, characters);
 	}
 	else if (m_overwrite)
 	{
@@ -414,5 +430,15 @@ void InputControl::updateText(size_t offset, String buffer)
 			setCursor(cursor_position);
 
 		m_sound_handler->playSound(m_input_theme->input_sound);
+		m_text_updated(buffer);
+	}
+}
+
+void InputControl::disableSelection()
+{
+	if (m_selected)
+	{
+		m_selected = false;
+		m_selection_range = make_pair(0, 0);
 	}
 }

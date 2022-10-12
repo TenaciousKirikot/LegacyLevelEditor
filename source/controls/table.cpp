@@ -150,19 +150,6 @@ void Table::writeToJson(array_writer& writer, const char** field_names)
 				continue;
 			}
 
-			ColorPicker* color_picker = dynamic_cast<ColorPicker*>(control);
-			if (color_picker)
-			{
-				sf::Color color = color_picker->getColor();
-				object_writer inner_writer = inner.nested_object(field_names[i]);
-
-				inner_writer.write("r", color.r);
-				inner_writer.write("g", color.g);
-				inner_writer.write("b", color.b);
-				inner_writer.close();
-				continue;
-			}
-
 			ComboBox* combo_box = dynamic_cast<ComboBox*>(control);
 			if (combo_box)
 			{
@@ -194,7 +181,11 @@ void Table::writeToJson(array_writer& writer, const char** field_names)
 			InputControl* input_control = dynamic_cast<InputControl*>(control);
 			if (input_control)
 			{
-				inner.write(field_names[i], input_control->getText().toAnsiString());
+				string value = input_control->getText().toAnsiString();
+				if (value != "")
+				{
+					inner.write(field_names[i], value);
+				}
 				continue;
 			}
 		}
